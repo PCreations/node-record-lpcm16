@@ -16,7 +16,8 @@ exports.start = function (options) {
     thresholdEnd: null,
     silence: '1.0',
     verbose: false,
-    recordProgram: 'rec'
+    recordProgram: 'rec',
+    onData: function() {},
   }
 
   options = Object.assign(defaults, options)
@@ -74,6 +75,7 @@ exports.start = function (options) {
 
     rec.on('data', function (data) {
       console.log('Recording %d bytes', data.length)
+      options.onData(data);
     })
 
     rec.on('end', function () {
